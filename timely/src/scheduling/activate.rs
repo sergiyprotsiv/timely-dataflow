@@ -5,7 +5,7 @@ use std::sync::Arc;
 use std::cell::RefCell;
 use std::thread::Thread;
 use std::collections::BinaryHeap;
-use std::time::{Duration, Instant};
+use std::time::Duration;
 use std::cmp::Reverse;
 use crossbeam_channel::{Sender, Receiver};
 use futures_util::task::ArcWake;
@@ -50,14 +50,14 @@ pub struct Activations {
     rx: Receiver<Vec<usize>>,
 
     // Delayed activations.
-    timer: Instant,
+    timer: instant::Instant,
     queue: BinaryHeap<Reverse<(Duration, Vec<usize>)>>,
 }
 
 impl Activations {
 
     /// Creates a new activation tracker.
-    pub fn new(timer: Instant) -> Self {
+    pub fn new(timer: instant::Instant) -> Self {
         let (tx, rx) = crossbeam_channel::unbounded();
         Self {
             clean: 0,
