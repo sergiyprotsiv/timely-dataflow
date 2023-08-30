@@ -3,7 +3,7 @@ use std::rc::Rc;
 use std::cell::RefCell;
 use std::any::Any;
 use std::collections::HashMap;
-use std::time::{Instant, Duration};
+use std::time::Duration;
 use std::fmt::{self, Debug};
 
 pub struct Registry<Id> {
@@ -12,7 +12,7 @@ pub struct Registry<Id> {
     /// A map from names to typed loggers.
     map: HashMap<String, (Box<dyn Any>, Box<dyn Flush>)>,
     /// An instant common to all logging statements.
-    time: Instant,
+    time: instant::Instant,
 }
 
 impl<Id: Clone+'static> Registry<Id> {
@@ -64,7 +64,7 @@ impl<Id: Clone+'static> Registry<Id> {
     }
 
     /// Creates a new logger registry.
-    pub fn new(time: Instant, id: Id) -> Self {
+    pub fn new(time: instant::Instant, id: Id) -> Self {
         Registry {
             id,
             time,
