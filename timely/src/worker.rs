@@ -4,7 +4,7 @@ use std::rc::Rc;
 use std::cell::{RefCell, RefMut};
 use std::any::Any;
 use std::str::FromStr;
-use std::time::{Instant, Duration};
+use std::time::Duration;
 use std::collections::HashMap;
 use std::collections::hash_map::Entry;
 use std::sync::Arc;
@@ -210,7 +210,7 @@ pub trait AsWorker : Scheduler {
 /// and has a list of dataflows that it manages.
 pub struct Worker<A: Allocate> {
     config: Config,
-    timer: Instant,
+    timer: instant::Instant,
     paths: Rc<RefCell<HashMap<usize, Vec<usize>>>>,
     allocator: Rc<RefCell<A>>,
     identifiers: Rc<RefCell<usize>>,
@@ -514,7 +514,7 @@ impl<A: Allocate> Worker<A> {
     ///
     /// });
     /// ```
-    pub fn timer(&self) -> Instant { self.timer }
+    pub fn timer(&self) -> instant::Instant { self.timer }
 
     /// Allocate a new worker-unique identifier.
     ///

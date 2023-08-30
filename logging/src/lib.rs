@@ -103,7 +103,7 @@ impl<T, E: Clone> Clone for Logger<T, E> {
 struct LoggerInner<T, E, A: ?Sized + FnMut(&Duration, &mut Vec<(Duration, E, T)>)> {
     id:     E,
     /// common instant used for all loggers.
-    time:   Instant,
+    time:   instant::Instant,
     /// offset to allow re-calibration.
     offset: Duration,
     /// shared buffer of accumulated log events
@@ -114,7 +114,7 @@ struct LoggerInner<T, E, A: ?Sized + FnMut(&Duration, &mut Vec<(Duration, E, T)>
 
 impl<T, E: Clone> Logger<T, E> {
     /// Allocates a new shareable logger bound to a write destination.
-    pub fn new<F>(time: Instant, offset: Duration, id: E, action: F) -> Self
+    pub fn new<F>(time: instant::Instant, offset: Duration, id: E, action: F) -> Self
     where
         F: FnMut(&Duration, &mut Vec<(Duration, E, T)>)+'static
     {
