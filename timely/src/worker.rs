@@ -261,7 +261,7 @@ impl<A: Allocate> Scheduler for Worker<A> {
 impl<A: Allocate> Worker<A> {
     /// Allocates a new `Worker` bound to a channel allocator.
     pub fn new(config: Config, c: A) -> Worker<A> {
-        let now = Instant::now();
+        let now =  instant::Instant::now(); //Instant::now();
         let index = c.index();
         Worker {
             config,
